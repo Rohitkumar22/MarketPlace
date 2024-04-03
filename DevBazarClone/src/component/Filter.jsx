@@ -1,4 +1,4 @@
-function Filter({ array, flag }) {
+function Filter({ array, flag, newarray }) {
   const json = [
     { value: 1, text: "Low to High" },
     { value: 2, text: "High to Low" },
@@ -11,12 +11,15 @@ function Filter({ array, flag }) {
       array.sort((a, b) => {
         return a.price - b.price;
       });
+
+      newarray([...array]);
     } else {
       array.sort((a, b) => {
+        console.log("ulta");
         return b.price - a.price;
       });
+      newarray([...array]);
     }
-    flag("true");
 
     console.log("Array sorted");
   };

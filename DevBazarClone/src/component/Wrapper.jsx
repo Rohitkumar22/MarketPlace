@@ -27,7 +27,7 @@ const Wrapper = () => {
   return (
     <div className="container pt-10 grid">
       <div className="grid grid-cols-8 p-1 gap-10 m-2">
-        <Filter array={items} newarray={filtereditems} flag={setfilter} />
+        <Filter array={items} newarray={setfiltereditem} flag={setfilter} />
         <div className=" col-span-6 h-full p-5 m-2">
           <div className="grid grid-cols-4">
             {items.map((item) => {
