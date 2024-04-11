@@ -1,7 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 function Filter({ array, flag, newarray, setitem, filtereditems }) {
-  const [searchTerm, setSearchTerm] = useState("");
   const json = [
     { value: 1, text: "Low to High" },
     { value: 2, text: "High to Low" },
@@ -33,19 +32,8 @@ function Filter({ array, flag, newarray, setitem, filtereditems }) {
     const data = array.filter((item) => {
       return item.attributes.brand === value;
     });
-
-    newarray(data);
+    setitem(data);
   };
-  // const debouce = (func, timer) => {
-  //   let timerid;
-  //   return function (...args) {
-  //     clearTimeout(timerid);
-  //     timerid = setTimeout(() => {
-  //       func();
-  //       console.log("inside debounce function\n");
-  //     }, timer);
-  //   };
-  // };
 
   const debounce = (func, delay) => {
     let timeoutId;
@@ -53,49 +41,40 @@ function Filter({ array, flag, newarray, setitem, filtereditems }) {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         func.apply(this, args);
+        console.log("inside debounce function\n");
       }, delay);
     };
   };
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
-
-    setSearchTerm(value);
-    const data = filtereditems.filter((item) => {
-      return item.attributes.brand == value;
+    console.log(value);
+    const data = array.filter((item) => {
+      return item.attributes.brand === value;
     });
-    console.log(`Array ==========`);
-    console.log(array);
-    console.log(`newArray ==========`);
-    console.log(filtereditems);
-
-    newarray(data);
-
-    console.log(`Array ==========`);
-    console.log(array);
-    console.log(`newArray ==========`);
-    console.log(filtereditems);
+    setitem(data);
   };
 
   const debouncedSearchChange = debounce(handleSearchChange, 300);
+
   return (
     <>
-      <div className="outline-1 outline-slate-200 outline	col-span-2 h-80 p-5 m-2">
+      <div className="outline-1 outline-slate-200 outline col-span-2 h-80 p-5 m-2">
         <div className="flex flex-row justify-between m-1 font-normal">
           <span className="flex m-0 mb-1 ">Filter</span>
           <span className="flex cursor-pointer ">Clear All</span>
         </div>
-        <div className=" outline outline-slate-100 outline-1 "></div>
-        <div className="flex mt-2 flex-row justify-center m-1  font-normal">
+        <div className="outline outline-slate-100 outline-1"></div>
+        <div className="flex mt-2 flex-row justify-center m-1 font-normal">
           <input
             onChange={debouncedSearchChange}
-            className="flex  p-1 w-96 border "
+            className="flex p-1 w-96 border"
             placeholder="Search for Product"
           />
         </div>
 
-        <div className="container mt-1 mb-1 ">
-          <div className=" font-normal">Sort By:</div>
+        <div className="container mt-1 mb-1">
+          <div className="font-normal">Sort By:</div>
           <div className="flex flex-col">
             {json.map((entry) => {
               return (
@@ -119,20 +98,20 @@ function Filter({ array, flag, newarray, setitem, filtereditems }) {
           </div>
         </div>
 
-        <div className="container mt-1 mb-1 ">
-          <div className=" font-normal text-base">Brands</div>
+        <div className="container mt-1 mb-1">
+          <div className="font-normal text-base">Brands</div>
           <div className="container">
             <div className="flex-col">
-              <label className="  flex font-thin">
+              <label className="flex font-thin">
                 <input type="checkbox" name="Radiogroup" value="Levis" /> Levis
               </label>
-              <label className="  flex font-thin">
+              <label className="flex font-thin">
                 <input type="checkbox" name="Radiogroup" value="HRX" /> HRX
               </label>
-              <label className="  flex font-thin">
+              <label className="flex font-thin">
                 <input type="checkbox" name="Radiogroup" value="Only" /> Only
               </label>
-              <label className=" flex flex font-thin">
+              <label className="flex font-thin">
                 <input type="checkbox" name="Radiogroup" value="Nautica" />{" "}
                 Nautica
               </label>
